@@ -11,13 +11,28 @@ alias -g cd.='cd ..'
 
 alias pingf='sudo ping -f'
 
-alias c='pygmentize -g -f256'
-function cat() {
+function f_c() {
+    [ -z "$*" ] && exit
+
+    tmp=`mktemp`
+
+    while [ ! -z $1 ]
+    do
+        echo "=== $1" > $tmp
+        pygmentize -O encoding=UTF-8 -g -f256 $1 > $tmp
+        shift
+    done
+
+    /bin/cat $tmp
+}
+alias c='f_c'
+
+function f_cat() {
     [ -z $1 ] && exit 0
 
-    c $* | \less -r
+    f_c $* | \less -r
 }
-alias -g cat='c | \less -r'
+alias -g cat='f_cat'
 
 # need a parameerized tsocks server
 alias -g tpull='tsocks git pull'
@@ -50,12 +65,13 @@ Where
   - options: is one or more of:
     * -c CAT: the category of the alias
     * -g: the alias should be global
+    * -d DOC: the documentation for the alias
 EOF
 
     if [ -z "$*" ] || [ -z $1 ] || [ -z $2 ]
     then
         echo $help_msg
-        exit 64
+        return 64
     fi
 
     aliasname=$1
@@ -75,10 +91,15 @@ EOF
                 G='-g'
                 shift
                 ;;
+            -d)
+                shift
+                DOC="$1"
+                shift
+                ;;
             *)
                 echo 'Unknown option: ' $1
                 echo $help_msg
-                exit 64
+                return 64
                 ;;
         esac
     done
@@ -88,10 +109,14 @@ EOF
 
     if [ -z $CAT ]
     then
-        echo $aliasstring >> ~/.aliases.d/new
+        out='new.sh'
     else
-        echo $aliasstring >> ~/.aliases.d/$CAT
+        out="$CAT.sh"
     fi
+    out="~/.aliases.d/$out"
+
+    [ ! -z $DOC ] && { echo "" >> $out; echo "# $DOC" >> $out }
+    echo $aliasstring >> $out
 }
 
 # /* vim: ft=bash */

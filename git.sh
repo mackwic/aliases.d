@@ -67,3 +67,4 @@ alias -g grpjs='ggrep \js'
 
 
 # vim: ft=zsh
+alias -g ga='git add'
