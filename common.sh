@@ -39,4 +39,59 @@ alias -g term2utf='echo '\''Setting terminal to utf-8 mode'\''; print -n '\''\e%
 alias -g insecscp='scp -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null"'
 alias -g insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null"'
 
+function add_alias() {
+
+    help_msg=<<EOF
+Usage: add_alias aliasname value [options]
+
+Where
+  - aliasname: is a word with only ascii letters
+  - value: is a command single quoted
+  - options: is one or more of:
+    * -c CAT: the category of the alias
+    * -g: the alias should be global
+EOF
+
+    if [ -z "$*" ] || [ -z $1 ] || [ -z $2 ]
+    then
+        echo $help_msg
+        exit 64
+    fi
+
+    aliasname=$1
+    value=$2
+    shift
+    shift
+
+    while [ ! -z $1 ]
+    do
+        case $1 in
+            -c)
+                shift
+                CAT=$1
+                shift
+                ;;
+            -g)
+                G='-g'
+                shift
+                ;;
+            *)
+                echo 'Unknown option: ' $1
+                echo $help_msg
+                exit 64
+                ;;
+        esac
+    done
+
+    aliasstring="alias $G $aliasname='$value'"
+    alias $G $aliasname="$value"
+
+    if [ -z $CAT ]
+    then
+        echo $aliasstring >> ~/.aliases.d/new
+    else
+        echo $aliasstring >> ~/.aliases.d/$CAT
+    fi
+}
+
 # /* vim: ft=bash */
