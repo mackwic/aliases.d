@@ -56,21 +56,41 @@ alias -g insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev
 
 function add_alias() {
 
-    help_msg=<<EOF
+    function debug() {
+        echo '[DEBUG] ' $*
+    }
+
+    function void() {
+    }
+
+    if [ ! -z $VERBOSE ] || [ ! -z $V ]
+    then
+        DEBUG=debug
+    else
+        DEBUG=void
+    fi
+
+    $DEBUG 'START'
+
+    read -r -d '' help_msg <<'EOF'
 Usage: add_alias aliasname value [options]
 
 Where
   - aliasname: is a word with only ascii letters
   - value: is a command single quoted
-  - options: is one or more of:
+  - options: is one or more of: (options not case sensitive)
     * -c CAT: the category of the alias
     * -g: the alias should be global
     * -d DOC: the documentation for the alias
 EOF
 
-    if [ -z "$*" ] || [ -z $1 ] || [ -z $2 ]
+[ -z "$help_msg" ] && return 255
+
+    if  [ -z $1 ] || [ -z $2 ]
+        [ 1 -le `echo $* | grep -c -P --regex='-(h|(-help))'` ]
     then
-        echo $help_msg
+        $DEBUG Help detected
+        echo -e "$help_msg"
         return 64
     fi
 
@@ -79,33 +99,54 @@ EOF
     shift
     shift
 
+    $DEBUG "aliasname=[$aliasname]"
+    $DEBUG "value=[$value]"
+
+    # reset variables to 0
+    CAT=''
+    G=''
+    DOC=''
+
     while [ ! -z $1 ]
     do
         case $1 in
-            -c)
+            -h | --help)
+                $DEBUG Help detected
+                echo -e "$help_msg"
+                return 0
+                ;;
+            -c | -C)
+                $DEBUG Category detected
                 shift
                 CAT=$1
                 shift
                 ;;
-            -g)
+            -g | -G)
+                $DEBUG Global flag detected
                 G='-g'
                 shift
                 ;;
-            -d)
+            -d | -D)
+                $DEBUG Documentation flag detected
                 shift
                 DOC="$1"
                 shift
                 ;;
             *)
+                $DEBUG Wildcard reached
                 echo 'Unknown option: ' $1
-                echo $help_msg
+                echo -e "$help_msg"
                 return 64
                 ;;
         esac
     done
 
+    $DEBUG Options OK
+
     aliasstring="alias $G $aliasname='$value'"
+    $DEBUG "aliasstring=[$aliasstring]"
     alias $G $aliasname="$value"
+    $DEBUG "Loaded"
 
     if [ -z $CAT ]
     then
@@ -113,10 +154,18 @@ EOF
     else
         out="$CAT.sh"
     fi
-    out="~/.aliases.d/$out"
+    out="$HOME/.aliases.d/$out"
+    touch "$out"
+
+    $DEBUG "outfile=[$out]"
 
     [ ! -z $DOC ] && { echo "" >> $out; echo "# $DOC" >> $out }
     echo $aliasstring >> $out
+
+    $DEBUG 'END'
+    CAT=$OLD[0]
+    G=$OLD[1]
+    DOC=$OLD[2]
 }
 
 # /* vim: ft=bash */
