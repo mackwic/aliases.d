@@ -60,7 +60,7 @@ function ggrep() {
 
     pattern=$1
     shift
-    g \grep --break --heading --show-function --no-color -n -I -e $pattern -- $* | pygmentize $langOpt -O bg=dark,fg=light,full -f256 | \less -r
+    g \grep -B 1 -A 3 --break --heading --show-function --no-color -n -I -e $pattern -- $* | pygmentize $langOpt -O bg=dark,fg=light,full -f256 | \less -r
 }
 
 alias -g grpjs='ggrep \js'
