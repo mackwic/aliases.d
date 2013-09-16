@@ -169,3 +169,6 @@ EOF
 }
 
 # /* vim: ft=bash */
+
+# open multiples files in 3 panes
+alias  vs='v -O3'

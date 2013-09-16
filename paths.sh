@@ -11,6 +11,6 @@ alias -g projp='cd ~/Documents/projects/php'
 alias -g projs='~/Documents/projects/js'
 alias -g projm='~/Documents/projects/mixed/'
 
-alias ledoc="cd ~/Documents/projects/mixed/ledoc"
+alias ledoc="cd ~/Documents/projects/js/ledoc"
 
 # /* vim ft=bash */

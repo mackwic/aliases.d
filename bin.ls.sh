@@ -24,3 +24,5 @@ alias -g lsw='ls -ld *(R,W,X.^ND/)'
 alias -g lsx='ls -l *(*)'
 
 # /* vim ft=bash */
+alias  l1='ls -1'
+alias  tre='tree -L 2'
