@@ -14,4 +14,6 @@ alias -g kbus='setxkbmap us'
 alias -g e=echo
 alias -g j='jobs -l'
 
+alias  s='rlfe psql'
+
 # /* vim ft=bash */
