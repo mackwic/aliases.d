@@ -10,6 +10,7 @@ alias -g projml='cd ~/Documents/projects/ocaml'
 alias -g projp='cd ~/Documents/projects/php'
 alias -g projs='~/Documents/projects/js'
 alias -g projm='~/Documents/projects/mixed/'
+alias -g projrb='cd /home/thomas/Documents/projects/ruby'
 
 alias ledoc="cd ~/Documents/projects/js/ledoc"
 
