@@ -22,10 +22,8 @@ alias -g gdc='gd --cached'
 alias -g gck='git checkout'
 alias -g gsum='git summary'
 
-alias -g gl='git log --color --graph --oneline --decorate $gopt | head -30'
-alias -g gll='git log --color --graph --oneline --decorate'
-alias -g glog='git log --abbrev-commit --graph --pretty=fuller --all --decorate --color --stat'
-
+alias -g gll='git log --color --no-merges --graph --pretty=format:"%C(auto)%h %C(auto)%d%Creset %C(auto)%s %C(red)%m%m %C(cyan)%an" --color --graph'
+alias -g gl='git --no-pager log -30 --color --no-merges --graph --pretty=format:"%C(auto)%h %C(auto)%d%Creset %C(auto)%s %C(red)%m%m %C(cyan)%an" --color --graph'
 alias -g grp='git \grep --break --heading --color -B 1 -A 2 -n -I'
 
 function ggrep() {
@@ -71,3 +69,4 @@ alias -g ga='git add'
 
 # Full synchronisation
 alias  gsync='gpl && gps'
+alias  gcm="git commit -m '"
