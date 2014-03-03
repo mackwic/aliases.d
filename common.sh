@@ -11,6 +11,9 @@ alias -g cd.='cd ..'
 
 alias pingf='sudo ping -f'
 
+alias -g say_again='\cat ~/.zsh_history | tail -n 2 | head -1 | cut -d ';' -f 2'
+alias -g please="sudo say_again"
+
 function f_c() {
     [ -z "$*" ] && exit
 
@@ -25,14 +28,19 @@ function f_c() {
 
     /bin/cat $tmp
 }
-alias c='f_c'
 
-function f_cat() {
+function f_cat() {§
     [ -z $1 ] && exit 0
 
     f_c $* | \less -r
 }
-alias -g cat='f_cat'
+
+if [ -x pygmentize ]
+    alias c='f_c'
+    alias -g cat='f_cat'
+else
+    alias c='cat'
+fi
 
 # need a parameerized tsocks server
 alias -g tpull='tsocks git pull'
