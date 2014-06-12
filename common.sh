@@ -12,6 +12,10 @@ alias -g cd.='cd ..'
 alias pingf='sudo ping -f'
 alias pig='ping google.fr'
 
+manopt(){ man $1 |sed 's/.\x08//g'|sed -n "/^\s\+-\+$2\b/,/^\s*$/p"|sed '$d;';}
+
+alias -g say_again='\cat ~/.zsh_history | tail -n 2 | head -1 | cut -d ";" -f 2'
+alias -g please="sudo say_again"
 
 # need a parameerized tsocks server
 alias -g tpull='tsocks git pull'
