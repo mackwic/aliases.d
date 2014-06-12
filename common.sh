@@ -10,29 +10,8 @@ alias -g cd-='cd -'
 alias -g cd.='cd ..'
 
 alias pingf='sudo ping -f'
+alias pig='ping google.fr'
 
-function f_c() {
-    [ -z "$*" ] && exit
-
-    tmp=`mktemp`
-
-    while [ ! -z $1 ]
-    do
-        echo "=== $1" > $tmp
-        pygmentize -O encoding=UTF-8 -g -f256 $1 > $tmp
-        shift
-    done
-
-    /bin/cat $tmp
-}
-alias c='f_c'
-
-function f_cat() {
-    [ -z $1 ] && exit 0
-
-    f_c $* | \less -r
-}
-alias -g cat='f_cat'
 
 # need a parameerized tsocks server
 alias -g tpull='tsocks git pull'

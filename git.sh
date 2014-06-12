@@ -70,3 +70,6 @@ alias -g ga='git add'
 # Full synchronisation
 alias  gsync='gpl && gps'
 alias  gcm="git commit -m '"
+
+# Add diff chunks by chunks
+alias -g gap='git add -p'

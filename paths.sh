@@ -10,8 +10,26 @@ alias -g projml='cd ~/Documents/projects/ocaml'
 alias -g projp='cd ~/Documents/projects/php'
 alias -g projs='~/Documents/projects/js'
 alias -g projm='~/Documents/projects/mixed/'
-alias -g projrb='cd /home/thomas/Documents/projects/ruby'
+alias -g projrb='cd ~/Documents/projects/ruby'
 
-alias ledoc="cd ~/Documents/projects/js/ledoc"
+#function j()
+#{
+#    [ -z $1 ] && { echo 'usage: j <dest>'; return 1 }
+#    dest=$1
+#
+#    proj_dir=$HOME/Documents/projects/*/*
+#
+#    echo $proj_dir
+#
+#    for proj in '$proj_dir'
+#    do
+#        if [ `dirname $proj` -eq $dest ]
+#        then
+#            cd $proj
+#        fi
+#    done
+#
+#    return 2
+#}
 
 # /* vim ft=bash */
