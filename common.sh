@@ -151,7 +151,7 @@ EOF
     DOC=$OLD[2]
 }
 
-# /* vim: ft=bash */
-
 # open multiples files in 3 panes
 alias  vs='v -O3'
+alias  tree='tree -L 5 -F -C --dirsfirst'
+alias  mr='rm'
