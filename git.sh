@@ -8,6 +8,7 @@ alias -g gc='git commit'
 alias -g gca='git commit -a'
 
 alias -g gs='git status -sb'
+alias -g gb='git branch -v'
 
 alias -g gps='git push'
 alias -g gpl='git pull'
@@ -73,3 +74,9 @@ alias  gcm="git commit -m '"
 
 # Add diff chunks by chunks
 alias -g gap='git add -p'
+alias  gmv='g mv'
+alias  gf='g fetch origin'
+alias  gam='gc --amend'
+alias  gpf='gps --force'
+alias -g gpss='git push origin $(git branch | grep "^*" | grep -Po "[\w-]+$")'
+alias -g gpssu='git push origin -u $(git branch | grep "^*" | grep -Po "[\w-]+$")'
