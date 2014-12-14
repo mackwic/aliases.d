@@ -155,3 +155,5 @@ EOF
 alias  vs='v -O3'
 alias  tree='tree -L 5 -F -C --dirsfirst'
 alias  mr='rm'
+alias  f='fg'
+alias  mosh='LC_ALL=en_GB.UTF-8 mosh'
