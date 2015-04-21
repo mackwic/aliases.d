@@ -78,5 +78,10 @@ alias  gmv='g mv'
 alias  gf='g fetch origin'
 alias  gam='gc --amend'
 alias  gpf='gps --force'
-alias -g gpss='git push origin $(git branch | grep "^*" | grep -Po "[\w-]+$")'
-alias -g gpssu='git push origin -u $(git branch | grep "^*" | grep -Po "[\w-]+$")'
+alias -g gpss='git push origin $(git branch | grep "^*" | grep -Po "[\w-.]+$")'
+alias -g gpssu='git push origin -u $(git branch | grep "^*" | grep -Po "[\w-.]+$")'
+
+# reove merged branches
+alias  g_rm_merged="git branch --merged | grep -v '^\*' | grep -v -P '(demo)|(release)' | xargs -n 1 git branch -d"
+alias  gpsf='git push --force'
+alias  gmm='gck master && gpl && gck - && g merge master'

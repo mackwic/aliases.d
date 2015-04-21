@@ -4,7 +4,7 @@ alias -g js='perl ~/jogsoul.pl ~/jogsoul.conf'
 alias -g prs='ps aux | grep'
 alias -g se=simple-extract
 alias -g t=tmux
-alias -g v=vim
+alias -g v=nvim
 
 alias -g kbdvo='setxkbmap dvorak'
 alias -g kbep='setxkbmap fr bepo'
