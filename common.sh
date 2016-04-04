@@ -22,7 +22,7 @@ alias -g tpull='tsocks git pull'
 alias -g tpush='tsocks git push'
 alias -g tsshepi='tsocks ssh mackwic@epimeros.org'
 
-alias -g refresh_aliases='. ~/.aliases'
+alias -g refresh_aliases='for f in ~/.aliases.d/*.sh ; do . $f ; done'
 alias -g rmcdir='cd ..; rmdir $OLDPWD || cd $OLDPWD'
 
 alias -g valg='valgrind -v --leak-check=full --show-reachable=yes --track-origins=yes --malloc-fill=42 --free-fill=43 --log-file=vallog'
@@ -157,3 +157,9 @@ alias  tree='tree -L 5 -F -C --dirsfirst'
 alias  mr='rm'
 alias  f='fg'
 alias  mosh='LC_ALL=en_GB.UTF-8 mosh'
+
+# copy on the clipboard
+alias -g xclip='pbcopy'
+alias  p='pushd'
+alias  c='cat'
+alias -g fil='file'

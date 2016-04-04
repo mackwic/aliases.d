@@ -78,10 +78,31 @@ alias  gmv='g mv'
 alias  gf='g fetch origin'
 alias  gam='gc --amend'
 alias  gpf='gps --force'
-alias -g gpss='git push origin $(git branch | grep "^*" | grep -Po "[\w-.]+$")'
-alias -g gpssu='git push origin -u $(git branch | grep "^*" | grep -Po "[\w-.]+$")'
+
+alias -g gbcur='git branch | grep "^*" | grep -Po "[\w-.]+$"'
+# porcelain version
+alias -g gbcur_p='echo refs/heads/$(gbcur)'
+
+alias -g gpss='git push origin $(gbcur_p)'
+alias -g gpssu='git push origin -u $(gbcur_p)'
+alias -g gprelease='gpssu && git tag -f $(gbcur) && gps origin $(gbcur_p) --tags'
 
 # reove merged branches
 alias  g_rm_merged="git branch --merged | grep -v '^\*' | grep -v -P '(demo)|(release)' | xargs -n 1 git branch -d"
-alias  gpsf='git push --force'
+alias  gpsf='git push origin $(gbcur) --force'
 alias  gmm='gck master && gpl && gck - && g merge master'
+alias gch='g reset --hard && gck'
+alias grh='g reset --hard'
+alias gsr='gb | gi'
+function gmk() {
+    branch=$1
+    force=$2
+    [ -z $branch ] && {
+        echo "Need a branch as argument"
+        return 1
+    }
+    [[ $force == '-f' ]] && g reset --hard
+    gck $branch && gpl && gck - && g merge $branch
+}
+alias gback='gb | gi behind'
+alias  gpll='git pull origin master'
