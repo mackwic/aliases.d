@@ -1,4 +1,4 @@
-alias -g bundle='~/.rbenv/shims/bundle'
+alias bundle='$(rbenv which bundle)'
 alias -g be='bundle exec'
 alias -g r='rake'
 alias -g ber='be r'

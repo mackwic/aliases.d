@@ -25,45 +25,7 @@ alias -g gsum='git summary'
 
 alias -g gll='git log --color --no-merges --graph --pretty=format:"%C(auto)%h %C(auto)%d%Creset %C(auto)%s %C(red)%m%m %C(cyan)%an" --color --graph'
 alias -g gl='git --no-pager log -30 --color --no-merges --graph --pretty=format:"%C(auto)%h %C(auto)%d%Creset %C(auto)%s %C(red)%m%m %C(cyan)%an" --color --graph'
-alias -g grp='git \grep --break --heading --color -B 1 -A 2 -n -I'
-
-function ggrep() {
-
-    case $1 in
-        'js' | 'javascript')
-            lang='javascript'
-            ;;
-        'c' | 'c++' | 'cpp')
-            lang=c++
-            ;;
-        'ruby' | 'rb')
-            lang=ruby
-            ;;
-        'py' | 'python')
-            lang=python
-            ;;
-        'sh' | 'bash' | 'zsh')
-            lang=bash
-            ;;
-        'ocaml')
-            lang=ocaml
-            ;;
-    esac
-
-    if [ -z $lang ]; then
-        langOpt='-g'
-    else
-        langOpt="-l$lang"
-        shift
-    fi
-
-    pattern=$1
-    shift
-    g \grep -B 1 -A 3 --break --heading --show-function --no-color -n -I -e $pattern -- $* | pygmentize $langOpt -O bg=dark,fg=light,full -f256 | \less -r
-}
-
-alias -g grpjs='ggrep \js'
-
+alias -g grp='git /usr/local/bin/grep --break --heading --color -B 1 -A 2 -n -I'
 
 # vim: ft=zsh
 alias -g ga='git add'
@@ -79,7 +41,7 @@ alias  gf='g fetch origin'
 alias  gam='gc --amend'
 alias  gpf='gps --force'
 
-alias -g gbcur='git branch | grep "^*" | grep -Po "[\w-.]+$"'
+alias -g gbcur='git branch | /usr/local/bin/grep "^*" | /usr/local/bin/grep -Po "[\w-.]+$"'
 # porcelain version
 alias -g gbcur_p='echo refs/heads/$(gbcur)'
 
@@ -88,7 +50,7 @@ alias -g gpssu='git push origin -u $(gbcur_p)'
 alias -g gprelease='gpssu && git tag -f $(gbcur) && gps origin $(gbcur_p) --tags'
 
 # reove merged branches
-alias  g_rm_merged="git branch --merged | grep -v '^\*' | grep -v -P '(demo)|(release)' | xargs -n 1 git branch -d"
+alias  g_rm_merged="git branch --merged | /usr/local/bin/grep -v '^\*' | /usr/local/bin/grep -v -P '(demo)|(release)' | xargs -n 1 git branch -d"
 alias  gpsf='git push origin $(gbcur) --force'
 alias  gmm='gck master && gpl && gck - && g merge master'
 alias gch='g reset --hard && gck'
