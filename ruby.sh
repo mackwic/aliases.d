@@ -13,5 +13,3 @@ alias  brt='br test'
 alias  brr='br build:all run'
 alias  bes='be bin/rails server'
 
-alias  bundle='`rbenv which bundle`'
-alias  bundle='\`rbenv which bundle\`'
