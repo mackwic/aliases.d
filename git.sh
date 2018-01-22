@@ -68,3 +68,4 @@ function gmk() {
 }
 alias gback='gb | gi behind'
 alias  gpll='git pull origin master'
+alias grh=git reset --hard
